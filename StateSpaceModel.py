@@ -9,10 +9,10 @@ from scipy.linalg import schur
 
 class StateSpaceModel:
     def __init__(self,
-            mass: int,
-            trolleyMass: int,
-            length: float,
-        ):
+        mass: int,
+        trolleyMass: int,
+        length: float,
+    ):
         self.m = mass
         self.M = trolleyMass
         self.L = length
