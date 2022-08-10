@@ -3,14 +3,14 @@ import numpy as np
 from ModelInput import ModelInput
 class Disturbances:
     def __init__(self,
-               covarianceDist,
-               covarianceNoise,
-               Daug: [],
-               inputSignal: ModelInput,
-                              ):
+        covarianceDist: float,
+        covarianceNoise: float,
+        daug: [],
+        inputSignal: ModelInput,
+    ):
         self.Vd = covarianceDist*np.eye(4)
         self.Vn = covarianceNoise
-        self.D = np.array(Daug)
+        self.D = np.array(daug) #np.array(np.array(daug))
         self.A, self.B, self.C, self.U = inputSignal.Builder()
         self.t = inputSignal.t
         self.uDIST = [[]]

@@ -42,4 +42,4 @@ class Response:
 
         self.y, self.t, self._ = control.matlab.lsim( self.sys, self.U, self.t)
 
-        return self.y, self.t, self._
+        return (self.y, self.t, self._)

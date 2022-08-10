@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 from Reponse import Response
 class Plot:
     def __init__(self,
-                 response: Response
-                 ):
+        response: Response
+    ):
         self.t = response.t
         self.A = response.run()
         self.x = response.y

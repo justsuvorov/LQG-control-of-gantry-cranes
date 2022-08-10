@@ -19,7 +19,7 @@ L = 1.15
 g = -10
 Vd = 0.00005  # distrubance covariance
 Vn = 0.001  # noise covariance
-D= np.array([0, 0, 1, 1, 1, 1])  # D matrix passes noise and disturbances through [F,x,v,fi,omega,y]
+D= [0, 0, 1, 1, 1, 1]  # D matrix passes noise and disturbances through [F,x,v,fi,omega,y]
 dt = 0.01
 time = 25
 t = np.arange(0, time, dt)
@@ -37,11 +37,29 @@ sensors = Sensors(C,disturbances)
 
 response = Response(0, sensors)
 """
-Plot(Response(0, Sensors(C,
-                         Disturbances(Vd, Vn, D, ModelInput(1, dt, StateSpaceModel(m, M, L), u = u, )
-                                      ))
-
-)).Show()
+Plot(
+    response = Response(
+        index = 0, 
+        model = Sensors(
+            C = C,
+            model = Disturbances(
+                covarianceDist = Vd, 
+                covarianceNoise = Vn, 
+                daug = D, 
+                ModelInput(
+                    loadIndex = 1, 
+                    dt = dt, 
+                    u = u, 
+                    model = StateSpaceModel(
+                        mass = m, 
+                        trolleyMass = M, 
+                        length = L
+                    ), 
+                )
+            )
+        )
+    )
+).Show()
 
 
 #Plot(response).Show()

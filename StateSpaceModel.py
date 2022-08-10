@@ -1,18 +1,18 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib import rcParams
-
 import control
 import control.matlab
 import slycot
+from matplotlib import rcParams
 from scipy import integrate
 from scipy.linalg import schur
+
 class StateSpaceModel:
     def __init__(self,
-                 mass,
-                 trolleyMass,
-                 length
-                 ):
+            mass: int,
+            trolleyMass: int,
+            length: float,
+        ):
         self.m = mass
         self.M = trolleyMass
         self.L = length
