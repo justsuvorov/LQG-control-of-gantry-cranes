@@ -5,6 +5,7 @@ from Disturbances import Disturbances
 from Sensors import Sensors
 from Reponse import Response
 from Plot import Plot
+
 def Force(t):
     F = 59.5394 * np.exp(-247.492 * t) - 365.263* np.exp(-50. * t) + \
         47.2495 * np.exp(-7.39438 * t) + (99.4454 -
@@ -45,9 +46,9 @@ Plot(
             model = Disturbances(
                 covarianceDist = Vd, 
                 covarianceNoise = Vn, 
-                daug = D, 
-                ModelInput(
-                    loadIndex = 1, 
+                daug = D,
+                inputSignal= ModelInput(
+                    loadIndex = 1,
                     dt = dt, 
                     u = u, 
                     model = StateSpaceModel(

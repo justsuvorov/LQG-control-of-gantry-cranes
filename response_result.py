@@ -4,6 +4,6 @@ class ResponseResult:
         y,
         _,
     ):
-    self.t = t
-    self.y = y
-    self._ = _
+        self.t = t
+        self.y = y
+        self._ = _

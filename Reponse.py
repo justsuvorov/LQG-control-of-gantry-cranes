@@ -5,7 +5,7 @@ from Disturbances import Disturbances
 import control
 import control.matlab
 from Sensors import Sensors
-
+from response_result import ResponseResult
 class Response:
     def __init__(self,
         index,
@@ -14,23 +14,23 @@ class Response:
     ):
         self.sys = []
         self.index = index
-        self.t = model.t
         self.y = [[]]
         self._ = [[]]
         self.x0 = X0
+        self.model = model
 
     def run(self):
-        A, B, C, D, U = model.Builder()
+        A, B, C, D, U = self.model.Builder()
         if self.index == 0:
             return self._timeDomainResponse(
                 self._buildSys(A, B, C, D),
                 U,
-                self.t,
+                self.model.t,
             )
         if self.index == 1:
             return self._stepResponse(
                 self._buildSys(A, B, C, D),
-                tm,
+
                 self.x0,
             )
 
