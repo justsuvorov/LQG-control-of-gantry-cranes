@@ -1,4 +1,3 @@
-from StateSpaceModel import StateSpaceModel
 import numpy as np
 from ModelInput import ModelInput
 from Disturbances import Disturbances
