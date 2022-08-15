@@ -14,6 +14,6 @@ class Sensors():
         print(model.t)
 
     def Builder(self):
-        Cc = self.Csensors
+        cC = self.Csensors
         A, B, C, D, U = self.model.Builder()
-        return A, B, Cc, D, U
+        return A, B, cC, D, U
