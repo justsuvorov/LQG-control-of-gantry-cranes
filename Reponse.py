@@ -8,6 +8,30 @@ from Sensors import Sensors
 from response_result import ResponseResult
 from KalmanFilter import KalmanFilter
 class Response:
+    """
+        Build a time-domain response for a state-space representation of a gantry crane linear system.
+
+        x' = Ax + Bu
+        y = Cx + Du
+
+        Parameters
+        ----------
+        Inputs
+
+        model : State Space Model with matrices A, B, C, D
+        U: matrix of inputs
+        index: 0 for time-domain response and 1 for a step response
+        initial state X0 as vector of coordinates [x, v, fi, omega]
+
+        Returns
+        -------
+        Modelbuilder : array of the state response [x, v, fi, omega] and vector of time t
+        Kf : Kalman filter coefficients
+
+        See Also https://python-control.readthedocs.io/en/latest/generated/control.matlab.lsim.html?highlight=lsim
+                https://python-control.readthedocs.io/en/latest/generated/control.matlab.step.html
+        -------
+        """
     def __init__(self,
         index,
         modelfilter: KalmanFilter = None,

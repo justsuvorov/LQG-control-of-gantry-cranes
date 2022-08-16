@@ -1,4 +1,8 @@
 class ResponseResult:
+    """
+     Container of results for class Response
+
+    """
     def __init__(self,
         t,
         y,

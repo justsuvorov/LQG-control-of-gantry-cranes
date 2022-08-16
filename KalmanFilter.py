@@ -5,6 +5,27 @@ import numpy as np
 from StateSpaceModel import StateSpaceModel
 
 class KalmanFilter:
+    """
+        Build Kalman Filter for a state-space representation of a gantry crane linear system.
+
+        x' = Ax + Bu
+        y = Cx + Du
+
+        Parameters
+        ----------
+        t : time interval for a time domain response
+        model : StateSpaceModel with matrices A, B, C, D
+        Covariance of noise and disturbances
+
+
+        Returns
+        -------
+        Modelbuilder : Matrix A, B, C, D for a time-domain analysis
+        Kf : Kalman filter koefficients
+
+        See Also https://en.wikipedia.org/wiki/Kalman_filter
+        -------
+        """
     def __init__(self,
                  model: Sensors,
                  ):

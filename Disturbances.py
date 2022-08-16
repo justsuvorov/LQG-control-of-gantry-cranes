@@ -2,6 +2,31 @@ from StateSpaceModel import StateSpaceModel
 import numpy as np
 from ModelInput import ModelInput
 class Disturbances:
+    """
+        Build vectors of Gaussian disturbances and noise for vector X as new matrices D and U
+
+        x' = Ax + Bu
+        y = Cx + Du
+
+        Parameters
+        ----------
+        Inputs:
+
+        covariance of disturbances: covariance of disturbances for a diagonal matrix of covariance
+        covariance of noise
+        daug: matrix passes disturbances and noise through for vector x and y like [F, x, v, fi, omega, y]
+        inputSignal: Input for the model and simulation
+
+
+        Returns
+        -------
+        Modelbuilder : Matrices A, B, C, D, matrix of loads U
+        vector of time for a time-domain analysis
+
+        See Also https://en.wikipedia.org/wiki/State-space_representation
+        -------
+
+        """
     def __init__(self,
         covarianceDist: float,
         covarianceNoise: float,

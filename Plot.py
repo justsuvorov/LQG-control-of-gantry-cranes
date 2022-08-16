@@ -1,6 +1,22 @@
 import matplotlib.pyplot as plt
 
 from Reponse import Response
+
+"""
+       Create plots for the time-domain response analysis of a gantry crane linear system.
+
+       Parameters
+       ----------
+       Inputs
+
+       Response: class for the response simulation
+
+       Returns
+       -------
+       Plots of the system dynamics
+
+       -------
+       """
 class Plot:
     def __init__(self,
         response: Response
