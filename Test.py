@@ -7,7 +7,7 @@ from Reponse import Response
 from KalmanFilter import KalmanFilter
 from Plot import Plot
 
-def Force(t):
+def force(t):
     """
     The function of force acting on the trolley
     :param t:
@@ -53,6 +53,7 @@ Plot(
                             mass = m,
                             trolleyMass = M,
                             length = L
+                            g = g
                         ),
                     )
                 )

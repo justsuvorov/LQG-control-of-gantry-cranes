@@ -32,8 +32,8 @@ class KalmanFilter:
         self.model = model
         self.t = []
 
-    def Builder(self):
-        A, B, C, D, U = self.model.Builder()
+    def builder(self):
+        A, B, C, D, U = self.model.builder()
         Vn = self.model.noise
         Vd = self.model.Vd
         Cc = np.array([1,0, 0, 0])

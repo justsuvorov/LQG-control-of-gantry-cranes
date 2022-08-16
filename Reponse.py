@@ -50,7 +50,7 @@ class Response:
 
     def run(self):
         if self.model == None : raise Exception('No model')
-        A, B, C, D, U = self.model.Builder()
+        A, B, C, D, U = self.model.builder()
         if self.index == 0:
             return self._timeDomainResponse(
                 self._buildSys(A, B, C, D),

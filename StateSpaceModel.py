@@ -34,17 +34,18 @@ class StateSpaceModel:
         mass: int,
         trolleyMass: int,
         length: float,
+        g: float,
     ):
-        self.m = mass
-        self.M = trolleyMass
-        self.L = length
-        self.g = -10
+        self._m = mass
+        self._tM = trolleyMass
+        self._L = length
+        self._g = g
 
     def modelbuilder(self):
         A = np.array([[0, 1, 0, 0], \
-                      [0, 0, -((self.g * self.m) / self.M), 0], \
+                      [0, 0, -((self._g * self._m) / self._tM), 0], \
                       [0, 0, 0, 1], \
-                      [0, 0, -((self.g * (-self.m - self.M)) / (self.L * self.M)), 0]])
+                      [0, 0, -((self._g * (-self._m - self._tM)) / (self._L * self._tM)), 0]])
 
-        B = np.array([0, 1 / self.M, 0, - 1 / (self.L * self.M)]).reshape((4, 1))
+        B = np.array([0, 1 / self._tM, 0, - 1 / (self._L * self._tM)]).reshape((4, 1))
         return A, B

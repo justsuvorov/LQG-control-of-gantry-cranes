@@ -27,14 +27,14 @@ class Sensors():
         C : [],
         model: Disturbances,
     ):
-        self.Csensors = np.array(C)
+        self._cSensors = np.array(C)
         self.model = model
         self.t = []
-        self.noise = model.Vn
-        self.Vd = model.Vd
 
-    def Builder(self):
-        Cc = self.Csensors
-        A, B, C, D, U = self.model.Builder()
+    def builder(self):
+        vD = model.Vd
+        noise = model.Vn
+        Cc = self._cSensors
+        A, B, C, D, U = self.model.builder()
         self.t = self.model.t
-        return A, B, Cc, D, U
+        return A, B, Cc, D, U#, noise, vD

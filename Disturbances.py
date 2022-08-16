@@ -33,16 +33,17 @@ class Disturbances:
         daug: [],
         inputSignal: ModelInput,
     ):
-        self.Vd = covarianceDist*np.eye(4)
+        self._covarianceDist = covarianceDist
         self.Vn = covarianceNoise
         self.D = np.array(daug) #np.array(np.array(daug))
         self.model = inputSignal
         self.t = []
 
-    def Builder(self):
-        A, B, C, U = self.model.Builder()
+    def builder(self):
+        vD = self._covarianceDist * np.eye(4)
+        A, B, C, U = self.model.builder()
         self.t = self.model.t
-        uDIST = np.sqrt(self.Vd) @ np.random.randn(4, len(U))  # random disturbance
+        uDIST = np.sqrt(vD) @ np.random.randn(4, len(U))  # random disturbance
         uNOISE = np.sqrt(self.Vn) * np.random.randn(len(U))  # random noise
         U = np.concatenate((U.reshape((1, len(U))), uDIST, uNOISE.reshape((1, len(uNOISE))))).T
         B = np.concatenate((B, np.eye(4), np.zeros_like(B)), axis=1)  # [u I*wd I*wn]
