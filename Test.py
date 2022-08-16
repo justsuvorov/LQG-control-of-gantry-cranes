@@ -19,8 +19,8 @@ m = 15
 M = 80
 L = 1.15
 g = -10
-Vd = 0.00005  # distrubance covariance
-Vn = 0.001  # noise covariance
+Vd = 0.00001  # distrubance covariance
+Vn = 0.01  # noise covariance
 D= [0, 0, 1, 1, 1, 1]  # D matrix passes noise and disturbances through [F,x,v,fi,omega,y]
 dt = 0.01
 time = 25
@@ -28,7 +28,7 @@ t = np.arange(0, time, dt)
 u = np.zeros_like(t)
 u = Force(t)
 C = [1,0,0,0]
-sensors = [0,0,0,0] #x, v, fi, omega
+sensors = [0,1,0,1] #x, v, fi, omega
 
 Plot(
     response = Response(
@@ -55,15 +55,3 @@ Plot(
         )
     )
 ).Show()
-
-#Plot(response).Show()
-
-
-
-
-
-
-
-
-
-
