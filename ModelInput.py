@@ -20,7 +20,6 @@ class ModelInput:
         self.output = []
         self.model = model
 
-
     def Builder(self):
         if self.loadIndex == 1:
             self.time = len(self.u) * self.dt
@@ -34,7 +33,7 @@ class ModelInput:
     def _force(self):
         self.t = np.arange(0, self.time, self.dt)
         self.u = np.zeros_like(self.t)
-        print(self.t)
+
 
         # u[100] = 20 / dt  # positive impulse
         # u[1500] = -20 / dt  # negative impulse

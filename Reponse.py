@@ -6,18 +6,22 @@ import control
 import control.matlab
 from Sensors import Sensors
 from response_result import ResponseResult
+from KalmanFilter import KalmanFilter
 class Response:
     def __init__(self,
         index,
-        model: Sensors,
-        X0: [] = None
+        modelfilter: KalmanFilter = None,
+        modelsensors: Sensors = None,
+        X0: [] = None,
     ):
         self.sys = []
         self.index = index
         self.y = [[]]
         self._ = [[]]
         self.x0 = X0
-        self.model = model
+        if modelfilter != None: self.model = modelfilter
+        if modelsensors != None: self.model = modelsensors
+
 
     def run(self):
         A, B, C, D, U = self.model.Builder()
@@ -34,17 +38,15 @@ class Response:
                 self.x0,
             )
 
-
-
     def _buildSys(self, A, B, C, D):
         return control.matlab.ss(A, B, C, D)
 
-    def _stepResponse(self, sys, tm, x0):
-        y, t, _ = control.matlab.step_response( sys, tm, x0)
+    def _stepResponse(self, sys, tm, x0 = 0):
+        y, t = control.step_response(sys, tm, X0 = 0)
         return ResponseResult(
             t = t,
             y = y,
-            _ = _,
+            _ = y
         )
 
     def _timeDomainResponse(self, sys, u, t):

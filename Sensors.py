@@ -6,14 +6,14 @@ class Sensors():
         C : [],
         model: Disturbances,
     ):
-
         self.Csensors = np.array(C)
         self.model = model
-        self.t = model.t
+        self.t = []
         self.noise = model.Vn
-        print(model.t)
+        self.Vd = model.Vd
 
     def Builder(self):
-        cC = self.Csensors
+        Cc = self.Csensors
         A, B, C, D, U = self.model.Builder()
-        return A, B, cC, D, U
+        self.t = self.model.t
+        return A, B, Cc, D, U

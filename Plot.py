@@ -6,11 +6,6 @@ class Plot:
         response: Response
     ):
         self._response = response
-        # self.t = response.t
-        # self.A = response.run()
-        # self.x = response.y
-        # self._ = response._
-
 
     def Show(self):
         responseResult = self._response.run()

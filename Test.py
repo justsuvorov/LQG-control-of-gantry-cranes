@@ -4,6 +4,7 @@ import numpy as np
 from Disturbances import Disturbances
 from Sensors import Sensors
 from Reponse import Response
+from KalmanFilter import KalmanFilter
 from Plot import Plot
 
 def Force(t):
@@ -27,41 +28,33 @@ t = np.arange(0, time, dt)
 u = np.zeros_like(t)
 u = Force(t)
 C = [1,0,0,0]
-"""
-crane = StateSpaceModel(m, M, L)
+sensors = [0,0,0,0] #x, v, fi, omega
 
-input = ModelInput(1, dt, crane, u = u, )
-
-disturbances = Disturbances(Vd, Vn, D, input)
-
-sensors = Sensors(C,disturbances)
-
-response = Response(0, sensors)
-"""
 Plot(
     response = Response(
-        index = 0, 
-        model = Sensors(
-            C = C,
-            model = Disturbances(
-                covarianceDist = Vd, 
-                covarianceNoise = Vn, 
-                daug = D,
-                inputSignal= ModelInput(
-                    loadIndex = 1,
-                    dt = dt, 
-                    u = u, 
-                    model = StateSpaceModel(
-                        mass = m, 
-                        trolleyMass = M, 
-                        length = L
-                    ), 
+        index = 0,
+        modelfilter= KalmanFilter(
+            model = Sensors(
+                C = sensors,
+                model = Disturbances(
+                    covarianceDist = Vd,
+                    covarianceNoise = Vn,
+                    daug = D,
+                    inputSignal = ModelInput(
+                        loadIndex = 1,
+                        dt = dt,
+                        u = u,
+                        model = StateSpaceModel(
+                            mass = m,
+                            trolleyMass = M,
+                            length = L
+                        ),
+                    )
                 )
             )
         )
     )
 ).Show()
-
 
 #Plot(response).Show()
 

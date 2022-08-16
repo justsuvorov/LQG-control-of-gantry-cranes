@@ -18,7 +18,6 @@ class StateSpaceModel:
         self.L = length
         self.g = -10
 
-
     def modelbuilder(self):
         A = np.array([[0, 1, 0, 0], \
                       [0, 0, -((self.g * self.m) / self.M), 0], \
@@ -27,4 +26,3 @@ class StateSpaceModel:
 
         B = np.array([0, 1 / self.M, 0, - 1 / (self.L * self.M)]).reshape((4, 1))
         return A, B
-
