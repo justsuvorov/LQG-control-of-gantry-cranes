@@ -7,8 +7,8 @@ x' = A*x + B*U
 y = C*x + D*U
 3. Model disturbances for inputs and noise for sensors as gaussian processes
 4. Build Kalman Filter for the linear system
-5. Plotting time domain response gor the system
-6. Model LQR control
+5. Plotting time domain response for the system
+6. Model LQR regulator
 ____
 ## Getting Started
 Use the package manager pip or conda to install slycot and control.
