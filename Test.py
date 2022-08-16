@@ -33,7 +33,7 @@ sensors = [0,1,0,1] #x, v, fi, omega
 
 t = np.arange(0, time, dt) #vector of time
 u = np.zeros_like(t)
-u = Force(t) #vector of input
+u = force(t) #vector of input
 
 Plot(
     response = Response(
@@ -52,7 +52,7 @@ Plot(
                         model = StateSpaceModel(
                             mass = m,
                             trolleyMass = M,
-                            length = L
+                            length = L,
                             g = g
                         ),
                     )

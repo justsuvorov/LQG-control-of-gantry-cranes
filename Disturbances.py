@@ -1,6 +1,8 @@
 from StateSpaceModel import StateSpaceModel
 import numpy as np
 from ModelInput import ModelInput
+from response_result import ResponseResult
+
 class Disturbances:
     """
         Build vectors of Gaussian disturbances and noise for vector X as new matrices D and U
@@ -34,18 +36,24 @@ class Disturbances:
         inputSignal: ModelInput,
     ):
         self._covarianceDist = covarianceDist
-        self.Vn = covarianceNoise
-        self.D = np.array(daug) #np.array(np.array(daug))
+        self._Vn = covarianceNoise
+        self._D = np.array(daug) #np.array(np.array(daug))
         self.model = inputSignal
-        self.t = []
 
     def builder(self):
         vD = self._covarianceDist * np.eye(4)
-        A, B, C, U = self.model.builder()
-        self.t = self.model.t
-        uDIST = np.sqrt(vD) @ np.random.randn(4, len(U))  # random disturbance
-        uNOISE = np.sqrt(self.Vn) * np.random.randn(len(U))  # random noise
-        U = np.concatenate((U.reshape((1, len(U))), uDIST, uNOISE.reshape((1, len(uNOISE))))).T
-        B = np.concatenate((B, np.eye(4), np.zeros_like(B)), axis=1)  # [u I*wd I*wn]
+        result = self.model.builder()
+        uDIST = np.sqrt(vD) @ np.random.randn(4, len(result.U))  # random disturbance
+        uNOISE = np.sqrt(self._Vn) * np.random.randn(len(result.U))  # random noise
+        U = np.concatenate((result.U.reshape((1, len(result.U))), uDIST, uNOISE.reshape((1, len(uNOISE))))).T
+        B = np.concatenate((result.B, np.eye(4), np.zeros_like(result.B)), axis=1)  # [u I*wd I*wn]
         C = np.array([1, 0, 0, 0])
-        return A, B, C, self.D, U
+        return ResponseResult(A = result.A,
+                              B = B,
+                              C = C,
+                              D = self._D,
+                              U = U,
+                              t = result.t,
+                              Vd = vD,
+                              Vn = self._Vn,
+        )

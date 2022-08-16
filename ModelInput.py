@@ -1,5 +1,6 @@
 from StateSpaceModel import StateSpaceModel
 import numpy as np
+from response_result import ResponseResult
 
 class ModelInput:
 
@@ -46,17 +47,19 @@ class ModelInput:
         self.time = time
         self.u = u
         self.force = force
-        self.t = []
-        self.output = []
 
     def builder(self):
         if self.loadIndex == 1:
             self.time = len(self.u) * self.dt
-            self.t = np.arange(0, self.time, self.dt)
+            t = np.arange(0, self.time, self.dt)
             output = np.array(self.u).T
-            A, B = self.model.modelbuilder()
+            result = self.model.modelbuilder()
             C = np.eye(4)
-            return A, B, C, output
+            return ResponseResult(A = result.A,
+                                  B = result.B,
+                                  C = C,
+                                  U = output,
+                                  t = t)
         else:
             raise Exception('This case not implemented yet.')
 

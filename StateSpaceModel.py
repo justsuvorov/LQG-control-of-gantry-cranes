@@ -6,6 +6,7 @@ import slycot
 from matplotlib import rcParams
 from scipy import integrate
 from scipy.linalg import schur
+from response_result import ResponseResult
 
 class StateSpaceModel:
 
@@ -48,4 +49,8 @@ class StateSpaceModel:
                       [0, 0, -((self._g * (-self._m - self._tM)) / (self._L * self._tM)), 0]])
 
         B = np.array([0, 1 / self._tM, 0, - 1 / (self._L * self._tM)]).reshape((4, 1))
-        return A, B
+        return ResponseResult(
+            A = A,
+            B = B,
+
+        )

@@ -41,8 +41,6 @@ class Response:
     ):
         self.sys = []
         self.index = index
-        self.y = [[]]
-        self._ = [[]]
         self.x0 = X0
         if modelfilter != None: self.model = modelfilter
         if modelsensors != None: self.model = modelsensors
@@ -50,17 +48,21 @@ class Response:
 
     def run(self):
         if self.model == None : raise Exception('No model')
-        A, B, C, D, U = self.model.builder()
+        result = self.model.builder()
+        A = result.A
+        B = result.B
+        C = result.C
+        D = result.D
+        U = result.U
         if self.index == 0:
             return self._timeDomainResponse(
                 self._buildSys(A, B, C, D),
                 U,
-                self.model.t,
+                result.t,
             )
         if self.index == 1:
             return self._stepResponse(
                 self._buildSys(A, B, C, D),
-
                 self.x0,
             )
 
@@ -70,6 +72,8 @@ class Response:
     def _stepResponse(self, sys, tm, x0 = 0):
         y, t = control.step_response(sys, tm, X0 = 0)
         return ResponseResult(
+            A = 0,
+            B = 0,
             t = t,
             y = y,
             _ = y
@@ -78,6 +82,8 @@ class Response:
     def _timeDomainResponse(self, sys, u, t):
         y, t, _ = control.matlab.lsim( sys, u, t)
         return ResponseResult(
+            A = 0,
+            B = 0,
             t = t,
             y = y,
             _ = _,
