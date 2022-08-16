@@ -12,7 +12,6 @@ class Response:
         index,
         modelfilter: KalmanFilter = None,
         modelsensors: Sensors = None,
-        statespacemodel: ModelInput = None,
         modeldisturbances:  Disturbances = None,
         X0: [] = None,
     ):
@@ -23,9 +22,7 @@ class Response:
         self.x0 = X0
         if modelfilter != None: self.model = modelfilter
         if modelsensors != None: self.model = modelsensors
-        if modelsensors != None: self.model = modelsensors
         if modeldisturbances != None: self.model = modeldisturbances
-        if statespacemodel != None: self.model = statespacemodel
 
     def run(self):
         if self.model == None : raise Exception('No model')
