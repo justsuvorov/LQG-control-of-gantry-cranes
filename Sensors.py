@@ -30,7 +30,6 @@ class Sensors():
     ):
         self._cSensors = np.array(C)
         self.model = model
-        self.t = []
 
     def builder(self):
         result = self.model.builder()

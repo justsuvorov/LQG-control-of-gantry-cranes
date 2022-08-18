@@ -6,6 +6,7 @@ from Sensors import Sensors
 from Reponse import Response
 from KalmanFilter import KalmanFilter
 from Plot import Plot
+from LQR import LQR
 
 def force(t):
     """
@@ -26,14 +27,15 @@ L = 1.15 #length of the rope
 g = -10  #g
 Vd = 0.00001  # distrubance covariance
 Vn = 0.01  # noise covariance
-D= [0, 0, 1, 1, 1, 1]  # D matrix passes noise and disturbances through [F,x,v,fi,omega,y]
+D= [0, 0, 1, 0, 0, 1]  # D matrix passes noise and disturbances through [F,x,v,fi,omega,y]
 dt = 0.01 #time discretization in s
 time = 25 #time interval for time domain response in s
-sensors = [0,1,0,1] #x, v, fi, omega
+sensors = [0, 1, 0, 1] #x, v, fi, omega
 
 t = np.arange(0, time, dt) #vector of time
 u = np.zeros_like(t)
 u = force(t) #vector of input
+signal = [0,0.3,0,0,0,0] #x, v, fi, omega
 
 Plot(
     response = Response(
@@ -49,6 +51,7 @@ Plot(
                         loadIndex = 1,
                         dt = dt,
                         u = u,
+                        #signal=u,
                         model = StateSpaceModel(
                             mass = m,
                             trolleyMass = M,
@@ -60,4 +63,35 @@ Plot(
             )
         )
     )
+).Show()
+
+
+
+Plot(
+    response = Response(
+        index = 0,
+        modellqr = LQR(
+            q = 1, r = 0.001, #modelfilter = KalmanFilter(
+                modelsensors = Sensors(
+                    C = sensors,
+                    model = Disturbances(
+                        covarianceDist = Vd,
+                        covarianceNoise = Vn,
+                        daug = D,
+                        inputSignal = ModelInput(
+                            loadIndex = 1,
+                            dt = dt,
+                            u = u,
+                            model = StateSpaceModel(
+                                mass = m,
+                                trolleyMass = M,
+                                length = L,
+                                g = g
+                            ),
+                        )
+                    )
+                )
+            )
+        )
+   # )
 ).Show()

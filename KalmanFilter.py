@@ -37,7 +37,6 @@ class KalmanFilter:
         result = self.model.builder()
         matrixC = np.array([1,0, 0, 0])
         Kf = control.lqe(result.A, np.eye(4), matrixC, result.Vd, result.Vn)[0].T
-        t = result.t
         print('Kalman Filter Coefficients: ', Kf)
         y, t, _ = control.matlab.lsim(control.matlab.ss(result.A, result.B, result.C, result.D), result.U, result.t)
         A = result.A - np.outer(Kf, result.C)
@@ -45,6 +44,7 @@ class KalmanFilter:
         B = np.concatenate((result.B[:,:1], np.atleast_2d(Kf.T)), axis=1)
         D = np.zeros_like(B)
         U = np.column_stack((result.U[:,0].T, y))
+        print(result.t)
 
         return ResponseResult(A = A,
                               B = B,

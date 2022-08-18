@@ -7,6 +7,7 @@ import control.matlab
 from Sensors import Sensors
 from response_result import ResponseResult
 from KalmanFilter import KalmanFilter
+from LQR import LQR
 class Response:
     """
         Build a time-domain response for a state-space representation of a gantry crane linear system.
@@ -34,6 +35,7 @@ class Response:
         """
     def __init__(self,
         index,
+        modellqr: LQR = None,
         modelfilter: KalmanFilter = None,
         modelsensors: Sensors = None,
         modeldisturbances:  Disturbances = None,
@@ -45,6 +47,7 @@ class Response:
         if modelfilter != None: self.model = modelfilter
         if modelsensors != None: self.model = modelsensors
         if modeldisturbances != None: self.model = modeldisturbances
+        if modellqr != None: self.model = modellqr
 
     def run(self):
         if self.model == None : raise Exception('No model')
