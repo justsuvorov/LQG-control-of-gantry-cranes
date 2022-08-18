@@ -37,6 +37,7 @@ u = np.zeros_like(t)
 u = force(t) #vector of input
 signal = [0,0.3,0,0,0,0] #x, v, fi, omega
 
+#Model with Kalman filter
 Plot(
     response = Response(
         index = 0,
@@ -65,7 +66,7 @@ Plot(
     )
 ).Show()
 
-
+#Model with LQR
 
 Plot(
     response = Response(
